@@ -9,6 +9,20 @@
         <title>Heart Rate</title>
     </head>
     <body>
+
+
+        <div class="app">
+            <div id="startPage">
+                <button id="refreshButton">Refresh</button>
+                <ul id="deviceList">
+                </ul>
+            </div>
+            <div id="connectedPage">
+                <div id="resultDiv"></div>
+                <button id="disconnectButton">Disconnect</button>
+            </div>            
+        </div>
+
         <div>
             <h2>HR_Alarm</h2>
             <input type="range" min="70" max="140" value="50" class="slider" id="upper_bpm_slider">

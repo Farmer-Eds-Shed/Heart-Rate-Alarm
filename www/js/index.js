@@ -20,7 +20,6 @@ var heartRate = {
     service: '180d',
     measurement: '2a37'
 };
-
 let bpm;
 
 let slider = document.getElementById("upper_bpm_slider");
@@ -34,42 +33,55 @@ slider.oninput = function() {
 var app = {
     initialize: function() {
         this.bindEvents();
+        connectedPage.hidden = true; //hides the HTML elements for the second page
     },
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        refreshButton.addEventListener('touchstart', this.refreshDeviceList, false); //on touch of the Refresh button, runs refreshDeviceList function
+		deviceList.addEventListener('touchstart', this.connect, false); //on touch of device list, connect to device
+		//sendButton.addEventListener('touchstart', this.sendData, false);
+		disconnectButton.addEventListener('touchstart', this.disconnect, false);
+
+
     },
     onDeviceReady: function() {
-        app.scan();
+        app.refreshDeviceList();
     },
-    scan: function() {
-        app.status("Scanning for Heart Rate Monitor");
+    refreshDeviceList: function() {
+		deviceList.innerHTML = ''; // empties the list
+		ble.scan([], 5, app.onDiscoverDevice, app.onError); //scans for BLE devices
+	},
+    onDiscoverDevice: function(device) {
+		//only shows devices with the name we're looking for
+		//if(device.name === DEVICE) {
+			//creates a HTML element to display in the app
+			var listItem = document.createElement('li'),
+			html = '<b>' + device.name + '</b><br/>' +
+			'RSSI: ' + device.rssi + '&nbsp;|&nbsp;' +
+			device.id;
+			listItem.innerHTML = html;
+			listItem.dataset.deviceId = device.id;         //save the device ID in the DOM element
+			listItem.setAttribute("class", "result");      //give the element a class for css purposes
+			deviceList.appendChild(listItem);              //attach it in the HTML element called deviceList
+        //}
 
-        var foundHeartRateMonitor = false;
+	},
+    connect: function(e) {
+		//get the device ID from the DOM element
+        deviceId = e.target.dataset.deviceId,
 
-        function onScan(peripheral) {
-            // this is demo code, assume there is only one heart rate monitor
-            console.log("Found " + JSON.stringify(peripheral));
-            foundHeartRateMonitor = true;
-
-            ble.connect(peripheral.id, app.onConnect, app.onDisconnect);
-        }
-
-        function scanFailure(reason) {
-            alert("BLE Scan Failed");
-        }
-
-        ble.scan([heartRate.service], 5, onScan, scanFailure);
-
-        setTimeout(function() {
-            if (!foundHeartRateMonitor) {
-                app.status("Did not find a heart rate monitor.");
-            }
-        }, 5000);
-    },
+		//connect functions asks for the device id, a callback function for when succeeds and one error functions for when it fails
+		ble.connect(deviceId, app.onConnect, app.onError);
+	},
     onConnect: function(peripheral) {
         app.status("Connected to " + peripheral.id);
         ble.startNotification(peripheral.id, heartRate.service, heartRate.measurement, app.onData, app.onError);
+        app.showConnectPage();
     },
+    disconnect: function(event) {
+		ble.disconnect(deviceId, app.showStartPage, app.onError);
+        app.onDisconnect(" by user")
+	},
     onDisconnect: function(reason) {
         alert("Disconnected " + reason);
         beatsPerMinute.innerHTML = "...";
@@ -86,6 +98,14 @@ var app = {
         }
         BPM();
     },
+    showStartPage: function() {
+		startPage.hidden = false;
+		connectedPage.hidden = true;
+	},
+	showConnectPage: function() {
+        startPage.hidden = true;
+		connectedPage.hidden = false;
+	},
     onError: function(reason) {
         alert("There was an error " + reason);
     },
@@ -102,5 +122,6 @@ var app = {
 function BPM() {
     console.log(bpm);
 }
+
 
 app.initialize();
