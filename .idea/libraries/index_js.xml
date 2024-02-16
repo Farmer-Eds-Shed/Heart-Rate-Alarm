@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="index.js">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/platforms/android/app/build/intermediates/compressed_assets/debug/out/assets/www/js/index.js.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

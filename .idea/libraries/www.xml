@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="www">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/platforms/android/app/build/intermediates/compressed_assets/debug/out/assets/www/cordova_plugins.js.jar!/" />
+      <root url="jar://$PROJECT_DIR$/platforms/android/app/build/intermediates/compressed_assets/debug/out/assets/www/index.html.jar!/" />
+      <root url="jar://$PROJECT_DIR$/platforms/android/app/build/intermediates/compressed_assets/debug/out/assets/www/cordova.js.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

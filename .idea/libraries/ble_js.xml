@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ble.js">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/platforms/android/app/build/intermediates/compressed_assets/debug/out/assets/www/plugins/cordova-plugin-ble-central/www/ble.js.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
