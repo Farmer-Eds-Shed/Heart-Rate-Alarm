@@ -52,18 +52,16 @@ var app = {
 		ble.scan([], 5, app.onDiscoverDevice, app.onError); //scans for BLE devices
 	},
     onDiscoverDevice: function(device) {
-		//only shows devices with the name we're looking for
-		//if(device.name === DEVICE) {
+		//only shows connectable devices 
+		if(device.connectable === true) {
 			//creates a HTML element to display in the app
 			var listItem = document.createElement('li'),
-			html = '<b>' + device.name + '</b><br/>' +
-			'RSSI: ' + device.rssi + '&nbsp;|&nbsp;' +
-			device.id;
+			html = device.name + ' | ' +	device.id;
 			listItem.innerHTML = html;
 			listItem.dataset.deviceId = device.id;         //save the device ID in the DOM element
 			listItem.setAttribute("class", "result");      //give the element a class for css purposes
-			deviceList.appendChild(listItem);              //attach it in the HTML element called deviceList
-        //}
+			deviceList.appendChild(listItem);  //attach it in the HTML element called deviceList
+        }
 
 	},
     connect: function(e) {
@@ -114,8 +112,6 @@ var app = {
         statusDiv.innerHTML = message;
     },
 
-
- 
 
 };
 

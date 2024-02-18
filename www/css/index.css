@@ -25,3 +25,11 @@ h1 {
 h2 {
     font-size:2em;
 }
+
+.result {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: rgb(204, 204, 204);
+    border-style: double;
+    list-style: none;
+}
