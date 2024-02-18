@@ -16,19 +16,30 @@
 /* jshint browser: true , devel: true*/
 
 // See BLE heart rate service http://goo.gl/wKH3X7
+
 var heartRate = {
     service: '180d',
     measurement: '2a37'
 };
 let bpm;
 
+//initialize slider from browser storage
+if (window.localStorage.getItem('upper_bpm_slider') != null) {
+        stored = window.localStorage.getItem('upper_bpm_slider')
+        document.getElementById("upper_bpm_slider").value = stored;
+    } 
+
+//define slider
 let slider = document.getElementById("upper_bpm_slider");
 let output = document.getElementById("upper_bpm_value");
-output.innerHTML = slider.value;
+output.innerHTML = document.getElementById("upper_bpm_slider").value
 
+//listen for slider changes
 slider.oninput = function() {
-  output.innerHTML = this.value;
+    output.innerHTML = this.value;
+    window.localStorage.setItem('upper_bpm_slider', this.value);
 }
+
 
 var app = {
     initialize: function() {

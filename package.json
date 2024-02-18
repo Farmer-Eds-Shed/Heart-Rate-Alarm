@@ -14,5 +14,8 @@
       },
       "cordova-plugin-dialogs": {}
     }
+  },
+  "dependencies": {
+    "es6-promise-plugin": "4.2.2"
   }
 }
