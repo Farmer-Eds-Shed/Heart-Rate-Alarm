@@ -10,12 +10,19 @@
     ],
     "plugins": {
       "cordova-plugin-ble-central": {
-        "ACCESS_BACKGROUND_LOCATION": "false"
+        "BLUETOOTH_USAGE_DESCRIPTION": "BLE Heart Rate Monitor",
+        "IOS_INIT_ON_LOAD": "true",
+        "BLUETOOTH_RESTORE_STATE": "true",
+        "ACCESS_BACKGROUND_LOCATION": "true"
       },
-      "cordova-plugin-dialogs": {}
+      "cordova-plugin-dialogs": {},
+      "cordova-plugin-background-mode": {}
     }
   },
   "dependencies": {
+    "cordova-androidx-build": "1.0.4",
+    "cordova-plugin-background-mode": "bitbucket:TheBosZ/cordova-plugin-run-in-background",
+    "cordova-plugin-device": "2.1.0",
     "es6-promise-plugin": "4.2.2"
   }
 }

@@ -57,6 +57,7 @@ var app = {
     },
     onDeviceReady: function() {
         app.refreshDeviceList();
+        cordova.plugins.backgroundMode.enable();
     },
     refreshDeviceList: function() {
 		deviceList.innerHTML = ''; // empties the list
@@ -76,11 +77,13 @@ var app = {
 
 	},
     connect: function(e) {
+        //cordova.plugins.backgroundMode.enable();
 		//get the device ID from the DOM element
         deviceId = e.target.dataset.deviceId,
 
 		//connect functions asks for the device id, a callback function for when succeeds and one error functions for when it fails
 		ble.connect(deviceId, app.onConnect, app.onError);
+        console.log(cordova.plugins.backgroundMode.isActive())
 	},
     onConnect: function(peripheral) {
         app.status("Connected to " + peripheral.id);
