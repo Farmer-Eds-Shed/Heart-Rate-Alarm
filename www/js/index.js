@@ -18,13 +18,38 @@
 // See BLE heart rate service http://goo.gl/wKH3X7
 
 //hard coded a web socket for test/debug of app
-const nodeSocket = new WebSocket(
+/*const nodeSocket = new WebSocket(
     "ws://192.168.1.22:1880/ws/hrm",[],
     {
         followRedirects: true,
         perMessageDeflate: false,
         maxPayload: 256 * 1024 * 1024, // 256Mb
-      });
+      });*/
+
+
+// ws create the websocket and returns it
+function autoReconnect(ws_create){
+    let ws = ws_create();
+    function startReconnecting(){
+        let interval = setInterval(()=>{
+            console.log('trying')
+            ws = ws_create();
+            ws.onopen = () => {
+                console.log('stop');
+                ws.onclose = startReconnecting;
+                clearInterval(interval);
+            }
+        }, 3000);
+    }
+    ws.onclose = startReconnecting;
+}
+
+let rc;
+autoReconnect(()=>{
+    rc = new WebSocket(
+        'ws://192.168.1.22:1880/ws/hrm')
+    return rc;
+});
 
 
 
@@ -119,8 +144,8 @@ var app = {
         if (bpm > slider.value) {
             navigator.notification.beep(1);
         }
-        nodeSocket.send(bpm);
-        BPM();
+        rc.send(bpm);
+        //BPM();
     },
     showStartPage: function() {
 		startPage.hidden = false;
@@ -141,9 +166,9 @@ var app = {
 
 };
 
-function BPM() {
+/*function BPM() {
     console.log(bpm);
-}
+}*/
 
 
 app.initialize();
