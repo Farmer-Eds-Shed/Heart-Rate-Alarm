@@ -6,6 +6,7 @@
     </description>
     <author> 
     </author>
-    <content src="index.html" />
+    <content src="http://localhost/index.html"/>
     <access origin="*" />
+    <allow-navigation href="*"/>
 </widget>

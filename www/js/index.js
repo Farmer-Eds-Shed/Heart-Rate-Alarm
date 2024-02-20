@@ -17,6 +17,17 @@
 
 // See BLE heart rate service http://goo.gl/wKH3X7
 
+//hard coded a web socket for test/debug of app
+const nodeSocket = new WebSocket(
+    "ws://192.168.1.22:1880/ws/hrm",[],
+    {
+        followRedirects: true,
+        perMessageDeflate: false,
+        maxPayload: 256 * 1024 * 1024, // 256Mb
+      });
+
+
+
 var heartRate = {
     service: '180d',
     measurement: '2a37'
@@ -108,6 +119,7 @@ var app = {
         if (bpm > slider.value) {
             navigator.notification.beep(1);
         }
+        nodeSocket.send(bpm);
         BPM();
     },
     showStartPage: function() {
