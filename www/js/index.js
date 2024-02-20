@@ -18,14 +18,6 @@
 // See BLE heart rate service http://goo.gl/wKH3X7
 
 //hard coded a web socket for test/debug of app
-/*const nodeSocket = new WebSocket(
-    "ws://192.168.1.22:1880/ws/hrm",[],
-    {
-        followRedirects: true,
-        perMessageDeflate: false,
-        maxPayload: 256 * 1024 * 1024, // 256Mb
-      });*/
-
 
 // ws create the websocket and returns it
 function autoReconnect(ws_create){
@@ -131,6 +123,7 @@ var app = {
         app.onDisconnect(" by user")
 	},
     onDisconnect: function(reason) {
+        navigator.notification.beep(5);
         alert("Disconnected " + reason);
         beatsPerMinute.innerHTML = "...";
         app.status("Disconnected");
@@ -156,6 +149,7 @@ var app = {
 		connectedPage.hidden = false;
 	},
     onError: function(reason) {
+        navigator.notification.beep(10);
         alert("There was an error " + reason);
     },
     status: function(message) {
