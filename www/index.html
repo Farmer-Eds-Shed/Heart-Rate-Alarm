@@ -11,7 +11,13 @@
     </head>
     <body>
 
+        <!-- Tab links -->
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'monitor')"" id="defaultOpen">Monitor</button>
+    <button class="tablinks" onclick="openTab(event, 'settings')">Settings</button>
+  </div>
 
+        <div id="monitor" class="tabcontent">
         <div class="app">
             <div id="startPage">
                 <button id="refreshButton">Refresh</button>
@@ -27,11 +33,16 @@
 
         <div>
             <h2>HR_Alarm</h2>
-            <input type="range" min="70" max="140" value="50" class="slider" id="upper_bpm_slider">
-            <p>Upper BPM Limit: <span id="upper_bpm_value"></span></p>
             <h1 id="beatsPerMinute">...</h1>
             <div id="statusDiv"></div>
         </div>
+        </div>
+
+        <div id="settings" class="tabcontent">
+            <input type="range" min="70" max="140" value="50" class="slider" id="upper_bpm_slider">
+            <p>Upper BPM Limit: <span id="upper_bpm_value"></span></p>
+        </div>
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
