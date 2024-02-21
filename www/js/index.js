@@ -51,22 +51,36 @@ var heartRate = {
 };
 let bpm;
 
-//initialize slider from browser storage
+//initialize slider states from browser storage
+if (window.localStorage.getItem('lower_bpm_slider') != null) {
+        stored = window.localStorage.getItem('lower_bpm_slider')
+        document.getElementById("lower_bpm_slider").value = stored;
+    }
 if (window.localStorage.getItem('upper_bpm_slider') != null) {
         stored = window.localStorage.getItem('upper_bpm_slider')
         document.getElementById("upper_bpm_slider").value = stored;
-    } 
+    }  
 
-//define slider
-let slider = document.getElementById("upper_bpm_slider");
-let output = document.getElementById("upper_bpm_value");
-output.innerHTML = document.getElementById("upper_bpm_slider").value
+//define sliders
+let lowerBPMSlider = document.getElementById("lower_bpm_slider");
+let lowerBPMOutput = document.getElementById("lower_bpm_value");
+lowerBPMOutput.innerHTML = document.getElementById("lower_bpm_slider").value
+
+let upperBPMSlider = document.getElementById("upper_bpm_slider");
+let upperBPMOutput = document.getElementById("upper_bpm_value");
+upperBPMOutput.innerHTML = document.getElementById("upper_bpm_slider").value
 
 //listen for slider changes
-slider.oninput = function() {
-    output.innerHTML = this.value;
+lowerBPMSlider.oninput = function() {
+    lowerBPMOutput.innerHTML = this.value;
+    window.localStorage.setItem('lower_bpm_slider', this.value);
+}
+upperBPMSlider.oninput = function() {
+    upperBPMOutput.innerHTML = this.value;
     window.localStorage.setItem('upper_bpm_slider', this.value);
 }
+
+
 
 
 var app = {
@@ -134,7 +148,10 @@ var app = {
         var data = new Uint8Array(buffer);
         beatsPerMinute.innerHTML = data[1];
         bpm = data[1];
-        if (bpm > slider.value) {
+        if (bpm > upperBPMSlider.value) {
+            navigator.notification.beep(1);
+        }
+        if (bpm < lowerBPMSlider.value) {
             navigator.notification.beep(1);
         }
         rc.send(bpm);
