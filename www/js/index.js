@@ -43,7 +43,7 @@ autoReconnect(()=>{
     return rc;
 });
 
-
+let counter = 0
 
 var heartRate = {
     service: '180d',
@@ -148,12 +148,20 @@ var app = {
         var data = new Uint8Array(buffer);
         beatsPerMinute.innerHTML = data[1];
         bpm = data[1];
+        
         if (bpm > upperBPMSlider.value) {
-            navigator.notification.beep(1);
+            counter++
+            //Alarm if HRM above threshold for more than 5 samples
+            if (counter > 5){
+                navigator.notification.beep(5);
+                counter = 0;
+            }
         }
-        if (bpm < lowerBPMSlider.value) {
-            navigator.notification.beep(1);
+        else {conter = 0;
         }
+        //if (bpm < lowerBPMSlider.value) {
+        //    navigator.notification.beep(1);
+        //}
         rc.send(bpm);
         //BPM();
     },
