@@ -124,7 +124,7 @@ var app = {
         deviceId = e.target.dataset.deviceId,
 
 		//connect functions asks for the device id, a callback function for when succeeds and one error functions for when it fails
-		ble.connect(deviceId, app.onConnect, app.onError);
+		ble.autoConnect(deviceId, app.onConnect, app.onError);
         console.log(cordova.plugins.backgroundMode.isActive())
 	},
     onConnect: function(peripheral) {
@@ -166,8 +166,9 @@ var app = {
 		connectedPage.hidden = false;
 	},
     onError: function(reason) {
-        navigator.notification.beep(10);
-        alert("There was an error " + reason);
+        navigator.notification.beep(5);
+        //alert("There was an error " + reason);
+        app.status("Connection Error");
     },
     status: function(message) {
         console.log(message);
