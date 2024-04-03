@@ -103,7 +103,7 @@ var app = {
     },
     refreshDeviceList: function() {
 		deviceList.innerHTML = ''; // empties the list
-		ble.scan([], 5, app.onDiscoverDevice, app.onError); //scans for BLE devices
+		ble.scan([heartRate.service], 5, app.onDiscoverDevice, app.onError); //scans for BLE devices
 	},
     onDiscoverDevice: function(device) {
 		//only shows connectable devices 
@@ -122,7 +122,7 @@ var app = {
         //cordova.plugins.backgroundMode.enable();
 		//get the device ID from the DOM element
         deviceId = e.target.dataset.deviceId,
-
+        app.status("Connecting to " + deviceId);
 		//connect functions asks for the device id, a callback function for when succeeds and one error functions for when it fails
 		ble.autoConnect(deviceId, app.onConnect, app.onError);
         console.log(cordova.plugins.backgroundMode.isActive())
@@ -137,7 +137,6 @@ var app = {
         app.onDisconnect(" by user")
 	},
     onDisconnect: function(reason) {
-        navigator.notification.beep(5);
         alert("Disconnected " + reason);
         beatsPerMinute.innerHTML = "...";
         app.status("Disconnected");
@@ -157,7 +156,7 @@ var app = {
                 counter = 0;
             }
         }
-        else {conter = 0;
+        else {counter = 0;
         }
         //if (bpm < lowerBPMSlider.value) {
         //    navigator.notification.beep(1);
@@ -174,9 +173,10 @@ var app = {
 		connectedPage.hidden = false;
 	},
     onError: function(reason) {
-        navigator.notification.beep(5);
+        // navigator.notification.beep(5);
         //alert("There was an error " + reason);
-        app.status("Connection Error");
+        console.log(reason)
+        app.status("Error: " + reason.errorMessage);
     },
     status: function(message) {
         console.log(message);

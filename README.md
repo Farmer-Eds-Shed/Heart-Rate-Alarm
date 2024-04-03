@@ -14,7 +14,7 @@ If you are looking for an opensource solution based on heart and movement monito
 
 Connects to a peripheral providing the [Heart Rate Service](http://goo.gl/wKH3X7).
 
-Works Android 4.3+.
+Works Android 11+.
 
     $ cordova platform add android
 
