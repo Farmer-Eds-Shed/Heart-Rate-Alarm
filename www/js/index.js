@@ -1,24 +1,6 @@
-// (c) 2015 Don Coleman
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-/* global ble, statusDiv, beatsPerMinute */
-/* jshint browser: true , devel: true*/
-
 // See BLE heart rate service http://goo.gl/wKH3X7
 
 //hard coded a web socket for test/debug of app
-
 // ws create the websocket and returns it
 function autoReconnect(ws_create){
     let ws = ws_create();
@@ -82,7 +64,6 @@ upperBPMSlider.oninput = function() {
 
 
 
-
 var app = {
     initialize: function() {
         this.bindEvents();
@@ -98,8 +79,94 @@ var app = {
 
     },
     onDeviceReady: function() {
+
+        /*Notification Permissions code. (Make sure to not alert(status) until splashscreen
+        * has been hidden with navigator.splashscreen.hide() 
+        * else alert might not show and your app seems to stall.)
+        */
+        let permissionPlugin = window.cordova.notifications_permission;
+        let rationaleTitle = "Notification Permission";
+        let rationaleMsg = "You really need to give permission!";
+        let rationaleOkButton = "OK";
+        let rationaleCancelButton = "Not now";
+        let rationaleTheme = permissionPlugin.themes.Theme_DeviceDefault_Dialog_Alert;
+        let lastResortTitle = "Notification Permission!";
+        let lastResortMsg = "You really need to give permission! Now the only way left is through system settings.";
+        let lastResortOkButton = "Settings";
+        let lastResortCancelButton = "No thanks";
+        let lastResortTheme = permissionPlugin.themes.Theme_DeviceDefault_Dialog_Alert;
+        permissionPlugin.maybeAskPermission(
+            function(status) {
+                /* Permission is either granted, denied, or not needed. */
+                switch(status){
+                    case permissionPlugin.GRANTED_NEWLY_WITHOUT_RATIONALE:
+                    case permissionPlugin.GRANTED_NEWLY_AFTER_RATIONALE:
+                    case permissionPlugin.GRANTED_NEWLY_AFTER_SETTINGS:
+                    case permissionPlugin.GRANTED_ALREADY:
+                    case permissionPlugin.NOT_NEEDED:
+                        /* Notification shows the same as it did before Android 13 (API Level 33). */
+                        break;
+                    case permissionPlugin.DENIED_NOT_PERMANENTLY_NEWLY:
+                    case permissionPlugin.DENIED_PERMANENTLY_NEWLY:
+                    case permissionPlugin.DENIED_NOT_PERMANENTLY_ALREADY:
+                    case permissionPlugin.DENIED_PERMANENTLY_ALREADY:
+                    case permissionPlugin.DENIED_PERMANENTLY_ALREADY_AFTER_SETTINGS:
+                    case permissionPlugin.DENIED_THROUGH_RATIONALE_DIALOG:
+                    case permissionPlugin.DENIED_THROUGH_LAST_RESORT_DIALOG:
+                    case permissionPlugin.NOT_ANDROID:
+                        /* The notification does not show. */
+                        break;    
+                    case permissionPlugin.ERROR:
+                        /* See console for error message */
+                        break;
+                }
+            },
+            {
+                show: true,
+                title:rationaleTitle,
+                msg: rationaleMsg,
+                okButton: rationaleOkButton,
+                cancelButton: rationaleCancelButton,
+                theme: rationaleTheme
+            },
+            {
+                show: true,
+                title:lastResortTitle,
+                msg: lastResortMsg,
+                okButton: lastResortOkButton,
+                cancelButton: lastResortCancelButton,
+                theme: lastResortTheme
+            }
+        );
+/* END OF Permissions code */
+        
+		var bg = window.cordova.plugins.backgroundMode;
+		bg.setDefaults({
+			text: 'HR Alarm is running in background',
+			hidden: false,
+			color: '0098D9',
+			icon: 'power',
+			allowClose: true,
+			channelDescription: 'Keep the App running in the background',
+			channelName: 'Keep running in background',
+			subText: 'App Needs to run in background for Epilepsy alarm',
+			showWhen: false
+		});
+		bg.enable();
+		bg.on('activate', function () {
+			bg.disableWebViewOptimizations();
+            //rc.send(bg.isActive());
+		});
+		bg.disableBatteryOptimizations();
+        bg.overrideBackButton();
+		var updateCount = 0;
+		setInterval(function () {
+			++updateCount;
+			bg.configure({
+				subText: 'Has updated ' + updateCount + ' time' + (updateCount === 1 ? '' : 's'),
+			});
+		}, 10000);
         app.refreshDeviceList();
-        cordova.plugins.backgroundMode.enable();
     },
     refreshDeviceList: function() {
 		deviceList.innerHTML = ''; // empties the list
@@ -184,6 +251,7 @@ var app = {
     },
 
 
+
 };
 
 /*function BPM() {
@@ -215,3 +283,6 @@ function openTab(evt, cityName) {
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
   }
+
+
+ 

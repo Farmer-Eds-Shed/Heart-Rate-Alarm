@@ -1,8 +1,11 @@
 {
   "devDependencies": {
     "cordova-android": "^12.0.1",
+    "cordova-plugin-background-mode": "bitbucket:TheBosZ/cordova-plugin-run-in-background",
     "cordova-plugin-ble-central": "^1.7.2",
-    "cordova-plugin-dialogs": "^2.0.2"
+    "cordova-plugin-device": "^2.1.0",
+    "cordova-plugin-dialogs": "^2.0.2",
+    "cordova-plugin-notifications-permission": "^0.0.29"
   },
   "cordova": {
     "platforms": [
@@ -16,16 +19,15 @@
         "ACCESS_BACKGROUND_LOCATION": "true"
       },
       "cordova-plugin-dialogs": {},
+      "cordova-plugin-cleartext": {},
       "cordova-plugin-background-mode": {},
-      "cordova-plugin-cleartext": {}
+      "cordova-plugin-notifications-permission": {}
     }
   },
   "dependencies": {
     "cordova-androidx-build": "1.0.4",
     "cordova-plugin-advanced-websocket-types": "0.0.5",
-    "cordova-plugin-background-mode": "bitbucket:TheBosZ/cordova-plugin-run-in-background",
     "cordova-plugin-cleartext": "1.0.0",
-    "cordova-plugin-device": "2.1.0",
     "es6-promise-plugin": "4.2.2"
   }
 }
