@@ -25,3 +25,8 @@ Works Android 11+.
 ### Credits:
 - https://github.com/tigoe/BluetoothLE-Examples/blob/main/cordova/beanNotify/www/js/index.js
 - 
+
+
+adb shell
+dumpsys deviceidle disable
+exit

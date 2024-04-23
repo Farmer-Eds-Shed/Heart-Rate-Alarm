@@ -9,6 +9,5 @@
     <content src="http://localhost/index.html"/>
     <access origin="*" />
     <allow-navigation href="*"/>
-    <preference name="android-minSdkVersion" value="22"/>
-    <preference name="android-targetSdkVersion" value="33" />
+    <preference name="android-minSdkVersion" value="22"/> 
 </widget>

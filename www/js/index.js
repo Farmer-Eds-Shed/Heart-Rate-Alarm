@@ -25,9 +25,11 @@ autoReconnect(()=>{
     return rc;
 });
 
-let counter = 0
+let counter = 0;
+let samples;
 
-var heartRate = {
+
+let heartRate = {
     service: '180d',
     measurement: '2a37'
 };
@@ -41,7 +43,11 @@ if (window.localStorage.getItem('lower_bpm_slider') != null) {
 if (window.localStorage.getItem('upper_bpm_slider') != null) {
         stored = window.localStorage.getItem('upper_bpm_slider')
         document.getElementById("upper_bpm_slider").value = stored;
-    }  
+    }
+if (window.localStorage.getItem('upper_sample_slider') != null) {
+        stored = window.localStorage.getItem('upper_sample_slider')
+        document.getElementById("upper_sample_slider").value = stored;
+    } 
 
 //define sliders
 let lowerBPMSlider = document.getElementById("lower_bpm_slider");
@@ -52,6 +58,13 @@ let upperBPMSlider = document.getElementById("upper_bpm_slider");
 let upperBPMOutput = document.getElementById("upper_bpm_value");
 upperBPMOutput.innerHTML = document.getElementById("upper_bpm_slider").value
 
+let upperSampleSlider = document.getElementById("upper_sample_slider");
+let upperSampleOutput = document.getElementById("upper_sample_value");
+upperSampleOutput.innerHTML = document.getElementById("upper_sample_slider").value
+samples = parseInt(upperSampleOutput.innerHTML);
+
+
+
 //listen for slider changes
 lowerBPMSlider.oninput = function() {
     lowerBPMOutput.innerHTML = this.value;
@@ -61,7 +74,23 @@ upperBPMSlider.oninput = function() {
     upperBPMOutput.innerHTML = this.value;
     window.localStorage.setItem('upper_bpm_slider', this.value);
 }
+upperSampleSlider.oninput = function() {
+    upperSampleOutput.innerHTML = this.value;
+    window.localStorage.setItem('upper_sample_slider', this.value);
+    samples = parseInt(upperSampleOutput.innerHTML);
+}
 
+//Mute toggle listener
+let muteCheckBox = document.getElementById("muteInput");
+let mute = false;
+
+muteCheckBox.oninput = function() {
+    if (muteCheckBox.checked == true){
+        mute = true;
+      } else {
+        mute = false;
+      }
+}
 
 
 var app = {
@@ -140,7 +169,7 @@ var app = {
         );
 /* END OF Permissions code */
         
-		var bg = window.cordova.plugins.backgroundMode;
+        let bg = window.cordova.plugins.backgroundMode;
 		bg.setDefaults({
 			text: 'HR Alarm is running in background',
 			hidden: false,
@@ -160,12 +189,12 @@ var app = {
 		bg.disableBatteryOptimizations();
         bg.overrideBackButton();
 		var updateCount = 0;
-		setInterval(function () {
-			++updateCount;
-			bg.configure({
-				subText: 'Has updated ' + updateCount + ' time' + (updateCount === 1 ? '' : 's'),
-			});
-		}, 10000);
+		//setInterval(function () {
+		//	++updateCount;
+		//	bg.configure({
+		//		subText: 'Has updated ' + updateCount + ' time' + (updateCount === 1 ? '' : 's'),
+		//	});
+		//}, 10000);
         app.refreshDeviceList();
     },
     refreshDeviceList: function() {
@@ -214,13 +243,17 @@ var app = {
         var data = new Uint8Array(buffer);
         beatsPerMinute.innerHTML = data[1];
         bpm = data[1];
+        //let bg = window.cordova.plugins.backgroundMode;
+        //bg.configure({
+        //   		subText: 'Heart Rate: ' + bpm,
+        //    	});
         
         if (bpm > upperBPMSlider.value) {
             counter++
             //Alarm if HRM above threshold for more than 5 samples
-            if (counter > 5){
-                navigator.notification.beep(5);
-                counter = 0;
+            if (counter > samples && mute == false){
+                navigator.notification.beep(1);
+                //counter = 0;
             }
         }
         else {counter = 0;
@@ -263,7 +296,7 @@ app.initialize();
 
 //HTML Tabs
 document.getElementById("defaultOpen").click();
-function openTab(evt, cityName) {
+function openTab(evt, tab) {
     // Declare all variables
     var i, tabcontent, tablinks;
   
@@ -280,7 +313,7 @@ function openTab(evt, cityName) {
     }
   
     // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
+    document.getElementById(tab).style.display = "block";
     evt.currentTarget.className += " active";
   }
 
