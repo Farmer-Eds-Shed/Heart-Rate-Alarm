@@ -13,8 +13,13 @@ If you are looking for an opensource solution based on heart and movement monito
 ---
 
 Connects to a peripheral providing the [Heart Rate Service](http://goo.gl/wKH3X7).
+### Tested Devices
+- [Fitcent Heart Rate Monitor](https://www.amazon.co.uk/dp/B09B342FXM?ref=ppx_yo2ov_dt_b_product_details&th=1) 
+  Works fine, but needs to be manually turned on, may switch off automatically if not detecting heart rate for a few min.
+- [Bangle JS 2](https://www.espruino.com/Bangle.js2)
+  OK for testing but heart rate is very inaccurate.
 
-Works Android 11+.
+Tested on Android 13.
 
     $ cordova platform add android
 
@@ -27,6 +32,7 @@ Works Android 11+.
 - 
 
 
-adb shell
-dumpsys deviceidle disable
-exit
+#### Disble Power Saving Options
+- adb shell
+- dumpsys deviceidle disable
+- exit
