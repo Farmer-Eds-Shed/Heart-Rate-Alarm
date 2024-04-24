@@ -44,9 +44,9 @@ Some devices may require more drastic steps - see: https://dontkillmyapp.com/
 - dumpsys deviceidle disable
 - exit
 
-##Screenshots
+## Screenshots
 
-
+<img src="./Screenshots/ScreenshotNRChart.png" alt="drawing" style="width:600px;"/>
 <img src="./Screenshots/Screenshot1.jpg" alt="drawing" style="width:200px;"/>
 <img src="./Screenshots/Screenshot2.jpg" alt="drawing" style="width:200px;"/>
 <img src="./Screenshots/Screenshot3.jpg" alt="drawing" style="width:200px;"/>
