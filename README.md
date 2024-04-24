@@ -46,7 +46,11 @@ Some devices may require more drastic steps - see: https://dontkillmyapp.com/
 
 ##Screenshots
 
-![screenshot](./Screenshots/Screenshot2.jpg)
+
+<img src="./Screenshots/Screenshot1.jpg" alt="drawing" style="width:200px;"/>
+<img src="./Screenshots/Screenshot2.jpg" alt="drawing" style="width:200px;"/>
+<img src="./Screenshots/Screenshot3.jpg" alt="drawing" style="width:200px;"/>
+<img src="./Screenshots/Screenshot4.jpg" alt="drawing" style="width:200px;"/>
 
 ### Credits:
 - https://github.com/tigoe/BluetoothLE-Examples/blob/main/cordova/beanNotify/www/js/index.js
