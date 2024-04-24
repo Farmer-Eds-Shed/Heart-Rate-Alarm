@@ -12,6 +12,8 @@ body {
     padding:0px;
     width:100%;
     text-align: center;
+    background-color: black;
+    color: whitesmoke;
 }
 
 div {
@@ -29,7 +31,8 @@ h2 {
 .result {
     padding-top: 5px;
     padding-bottom: 5px;
-    background-color: rgb(204, 204, 204);
+    background-color: rgb(238, 247, 191);
+    color: black;
     border-style: double;
     list-style: none;
 }
@@ -38,7 +41,7 @@ h2 {
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    background-color: rgb(238, 247, 191);
   }
   
   /* Style the buttons that are used to open the tab content */
@@ -103,7 +106,7 @@ h2 {
 .speaker {
   width: 100%;
   height: 100%;
-  background-color: rgb(39, 39, 39);
+  background-color: grey;
   display: flex;
   align-items: center;
   justify-content: center;
