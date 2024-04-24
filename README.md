@@ -2,7 +2,9 @@
 
 **Disclaimer:** I am not a medical professional, no clinical trials have or will be performed on this software. Use of any code within this repository is entirely at your own risk. It should be noted that not all seizures are the same and what works for detecting one persons may not work for another, also no seizure alarm can guarantee detecting every seizure including some very serious.
 
-## Heart Rate Alarm
+App is a work in progress and there is still much to do.
+
+# Heart Rate Alarm
 
 This App works by monitoring heart rate and will issue an audible alert in the event of the heart rate exceeding some definable parameters. 
 
@@ -12,29 +14,45 @@ I am developing this software to help monitor my daughters nocturnal epileptic s
 - Loudness of alarm - we want to be woken but some devices suited for hospitals / care homes are just too loud.
 - Accelerometers - movement is not a big feature of our daughters seizures and we found they only raise false alarms for us.
 
- 
-
 If you are looking for an opensource solution based on heart and movement monitoring I would suggest looking at https://github.com/OpenSeizureDetector.
 
 ---
 
-Connects to a peripheral providing the BLE Heart Rate Service. (Bluetooth 4.0+)
+## Devices
 
+### Devices Tested
 
-### Tested Devices
 - [Fitcent Heart Rate Monitor](https://www.amazon.co.uk/dp/B09B342FXM?ref=ppx_yo2ov_dt_b_product_details&th=1) 
   Works fine, but needs to be manually turned on, may switch off automatically if not detecting heart rate for a few min.
 - [Bangle JS 2](https://www.espruino.com/Bangle.js2)
   OK for testing but heart rate is very inaccurate.
 
-Tested on Android 13.
+### Devices to be Tested
+
+- [COROS Heart Rate Monitor](https://www.amazon.co.uk/COROS-Auto-wear-Detection-Compatible-Connections/dp/B0CH8LJL3Y/?_encoding=UTF8&pd_rd_w=L2FQd&content-id=amzn1.sym.386c33bb-9a6d-4a4d-9a06-3bb24cb22d5d%3Aamzn1.symc.cdb151ed-d8fe-485d-b383-800c8b0e3fd3&pf_rd_p=386c33bb-9a6d-4a4d-9a06-3bb24cb22d5d&pf_rd_r=NH2YGMAA0KX69ASEKWAC&pd_rd_wg=Dt2w6&pd_rd_r=72082538-9d8c-4dd1-ad1c-dbc905b9d7cd&ref_=pd_gw_ci_mcx_mr_hp_atf_m&th=1&psc=1) 
+Looks Promising as it has an auto wear detection feature, so shouldn't need to worry about manual power on or auto power off.
+
+
+### Android Devices
+- Tested on Android 13.
+- [Oppo A54 5G](https://www.oppo.com/ie/smartphones/series-a/a54-5g/)
+- [TECLAST P85T](https://www.amazon.co.uk/dp/B0CQJHVNCJ?psc=1&ref=ppx_yo2ov_dt_b_product_details) 8 inch Tablet 
+
+## Software
+
+### Cordova install
 
     $ cordova platform add android
 
     $ cordova run
 
 
-#### Disable Power Saving Options
+### Node-Red
+
+Node-Red is being used a server to monitor the App via a WebSocket. This will be used for graphing heart rate over night as well as test and debug of the App. May also be used in conjunction with a Notification service such as NTFY to alert if the App itself crashes.
+
+
+### Disable Power Saving Options
 
 Android Permissions are required to allow app to run in background and provide notification services, all power saving options should be turned off or set to least restrictive.
 
