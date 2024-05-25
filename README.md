@@ -8,13 +8,15 @@ App is a work in progress and there is still much to do.
 
 This App works by monitoring heart rate and will issue an audible alert in the event of the heart rate exceeding some definable parameters. 
 
-I am developing this software to help monitor my daughters nocturnal epileptic seizures. I have tried using a commercial device, but it is not working for us as it goes into a low sensitivity mode if the wearer gets up and my daughter often sits or even stands up out of bed immediately prior to her seizures due to a feeling of nausea. We have also looked at other commercial devices and decided against for a number of reasons including:
+I am developing this software to help monitor our daughters nocturnal epileptic seizures. We have tried using a commercial device, but it is not working for us as it goes into a low sensitivity mode if the wearer gets up and our daughter often sits or even stands up out of bed immediately prior to her seizures due to a feeling of nausea. We have also looked at other commercial devices and decided against for a number of reasons including:
 
 - low sensitivity modes.
 - Loudness of alarm - we want to be woken but some devices suited for hospitals / care homes are just too loud.
 - Accelerometers - movement is not a big feature of our daughters seizures and we found they only raise false alarms for us.
 
-If you are looking for an opensource solution based on heart and movement monitoring I would suggest looking at https://github.com/OpenSeizureDetector.
+This works by detecting a heartrate over a definable threshold for a definable number of samples. This way it can be tunned to detect heartrates outside of the wearers normal sleep pattern. So far this has been working very well for us at detecting even minor seizures with much fewer false alarms than we were having with the commercial device. Not everyone with epilepsy will have the same heartrate changes, there are options with more complex algorithms available, including the device we tried previously, but we found they were prone to more false alarms due to looking for more subtle changes in heartrate. Our daughter has a very distinct increase in heartrate at the start of her seizures.   
+
+If you are looking for an opensource solution based on heartrate and movement monitoring I would suggest looking at https://github.com/OpenSeizureDetector.
 
 ---
 
@@ -26,9 +28,6 @@ If you are looking for an opensource solution based on heart and movement monito
   Works fine, but needs to be manually turned on, may switch off automatically if not detecting heart rate for a few min.
 - [Bangle JS 2](https://www.espruino.com/Bangle.js2)
   OK for testing but heart rate is very inaccurate.
-
-### Devices to be Tested
-
 - [COROS Heart Rate Monitor](https://www.amazon.co.uk/COROS-Auto-wear-Detection-Compatible-Connections/dp/B0CH8LJL3Y/?_encoding=UTF8&pd_rd_w=L2FQd&content-id=amzn1.sym.386c33bb-9a6d-4a4d-9a06-3bb24cb22d5d%3Aamzn1.symc.cdb151ed-d8fe-485d-b383-800c8b0e3fd3&pf_rd_p=386c33bb-9a6d-4a4d-9a06-3bb24cb22d5d&pf_rd_r=NH2YGMAA0KX69ASEKWAC&pd_rd_wg=Dt2w6&pd_rd_r=72082538-9d8c-4dd1-ad1c-dbc905b9d7cd&ref_=pd_gw_ci_mcx_mr_hp_atf_m&th=1&psc=1) 
 Looks Promising as it has an auto wear detection feature, so shouldn't need to worry about manual power on or auto power off.
 
