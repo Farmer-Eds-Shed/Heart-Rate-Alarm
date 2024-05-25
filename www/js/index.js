@@ -1,6 +1,15 @@
-// See BLE heart rate service http://goo.gl/wKH3X7
 
-//hard coded a web socket for test/debug of app
+
+//initialize server urls from browser storage
+if (window.localStorage.getItem('url') != null) {
+    stored = window.localStorage.getItem('url')
+    document.getElementById("url").value = stored;
+}
+
+//define urls
+let url = document.getElementById("url");
+
+// web socket for test/debug of app
 // ws create the websocket and returns it
 function autoReconnect(ws_create){
     let ws = ws_create();
@@ -19,11 +28,31 @@ function autoReconnect(ws_create){
 }
 
 let rc;
-autoReconnect(()=>{
-    rc = new WebSocket(
-        'ws://192.168.1.22:1880/ws/hrm')
-    return rc;
-});
+if (url.value != ""){
+    autoReconnect(()=>{
+        rc = new WebSocket(
+            url.value
+        )
+        return rc;
+    });
+}
+
+//listen for url changes
+const urlBtn = document.getElementById("url-btn");
+urlBtn.addEventListener("click", urlApply);
+
+
+function urlApply() {
+    window.localStorage.setItem('url', url.value);
+    if (url.value != ""){
+        autoReconnect(()=>{
+            rc = new WebSocket(
+                this.value
+            )
+            return rc;
+        });
+    }
+}
 
 let counter = 0;
 let samples;
@@ -34,6 +63,10 @@ let heartRate = {
     measurement: '2a37'
 };
 let bpm;
+
+
+
+
 
 //initialize slider states from browser storage
 if (window.localStorage.getItem('lower_bpm_slider') != null) {
