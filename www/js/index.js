@@ -1,7 +1,5 @@
-
-
 //initialize server urls from browser storage
-if (window.localStorage.getItem('url') != null) {
+if (window.localStorage.getItem('url') != null && window.localStorage.getItem('url').startsWith("ws://")) {
     stored = window.localStorage.getItem('url')
     document.getElementById("url").value = stored;
 }
@@ -66,13 +64,11 @@ let bpm;
 
 
 
-
-
 //initialize slider states from browser storage
-if (window.localStorage.getItem('lower_bpm_slider') != null) {
-        stored = window.localStorage.getItem('lower_bpm_slider')
-        document.getElementById("lower_bpm_slider").value = stored;
-    }
+//if (window.localStorage.getItem('lower_bpm_slider') != null) {
+//        stored = window.localStorage.getItem('lower_bpm_slider')
+//        document.getElementById("lower_bpm_slider").value = stored;
+//    }
 if (window.localStorage.getItem('upper_bpm_slider') != null) {
         stored = window.localStorage.getItem('upper_bpm_slider')
         document.getElementById("upper_bpm_slider").value = stored;
@@ -83,9 +79,9 @@ if (window.localStorage.getItem('upper_sample_slider') != null) {
     } 
 
 //define sliders
-let lowerBPMSlider = document.getElementById("lower_bpm_slider");
-let lowerBPMOutput = document.getElementById("lower_bpm_value");
-lowerBPMOutput.innerHTML = document.getElementById("lower_bpm_slider").value
+//let lowerBPMSlider = document.getElementById("lower_bpm_slider");
+//let lowerBPMOutput = document.getElementById("lower_bpm_value");
+//lowerBPMOutput.innerHTML = document.getElementById("lower_bpm_slider").value
 
 let upperBPMSlider = document.getElementById("upper_bpm_slider");
 let upperBPMOutput = document.getElementById("upper_bpm_value");
@@ -99,10 +95,10 @@ samples = parseInt(upperSampleOutput.innerHTML);
 
 
 //listen for slider changes
-lowerBPMSlider.oninput = function() {
-    lowerBPMOutput.innerHTML = this.value;
-    window.localStorage.setItem('lower_bpm_slider', this.value);
-}
+//lowerBPMSlider.oninput = function() {
+//    lowerBPMOutput.innerHTML = this.value;
+//    window.localStorage.setItem('lower_bpm_slider', this.value);
+//}
 upperBPMSlider.oninput = function() {
     upperBPMOutput.innerHTML = this.value;
     window.localStorage.setItem('upper_bpm_slider', this.value);
@@ -222,12 +218,6 @@ var app = {
 		bg.disableBatteryOptimizations();
         bg.overrideBackButton();
 		var updateCount = 0;
-		//setInterval(function () {
-		//	++updateCount;
-		//	bg.configure({
-		//		subText: 'Has updated ' + updateCount + ' time' + (updateCount === 1 ? '' : 's'),
-		//	});
-		//}, 10000);
         app.refreshDeviceList();
     },
     refreshDeviceList: function() {
@@ -276,10 +266,6 @@ var app = {
         var data = new Uint8Array(buffer);
         beatsPerMinute.innerHTML = data[1];
         bpm = data[1];
-        //let bg = window.cordova.plugins.backgroundMode;
-        //bg.configure({
-        //   		subText: 'Heart Rate: ' + bpm,
-        //    	});
         
         if (bpm > upperBPMSlider.value) {
             counter++
@@ -295,7 +281,6 @@ var app = {
         //    navigator.notification.beep(1);
         //}
         rc.send(bpm);
-        //BPM();
     },
     showStartPage: function() {
 		startPage.hidden = false;
@@ -306,7 +291,7 @@ var app = {
 		connectedPage.hidden = false;
 	},
     onError: function(reason) {
-        // navigator.notification.beep(5);
+        navigator.notification.beep(3);
         //alert("There was an error " + reason);
         console.log(reason)
         app.status("Error: " + reason.errorMessage);
@@ -319,10 +304,6 @@ var app = {
 
 
 };
-
-/*function BPM() {
-    console.log(bpm);
-}*/
 
 
 app.initialize();
