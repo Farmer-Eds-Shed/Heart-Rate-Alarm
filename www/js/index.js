@@ -54,6 +54,7 @@ function urlApply() {
 
 let counter = 0;
 let samples;
+let eventQ = [];
 
 
 let heartRate = {
@@ -62,6 +63,20 @@ let heartRate = {
 };
 let bpm;
 
+//get eventQ from local starage
+if (window.localStorage.getItem('eventQ') != null) {
+    eventQ = JSON.parse(window.localStorage.getItem('eventQ'))
+    console.log(eventQ)
+    //creates a HTML element to display in the app
+    for (let event of eventQ) {
+        var listItem = document.createElement('li'),
+        html = event;
+        listItem.innerHTML = html;
+        listItem.setAttribute("class", "result");      //give the element a class for css purposes
+        eventList.appendChild(listItem);  //attach it in the HTML element called eventList
+    }
+
+}
 
 
 //initialize slider states from browser storage
@@ -270,12 +285,16 @@ var app = {
         if (bpm > upperBPMSlider.value) {
             counter++
             //Alarm if HRM above threshold for more than 5 samples
-            if (counter > samples && mute == false){
+            if (counter >= samples && mute == false){
                 navigator.notification.beep(1);
-                //counter = 0;
+            
+            }
+            if (counter == samples) {
+                app.events("Alert, Heart Rate above upper limit")
             }
         }
-        else {counter = 0;
+        else {
+            counter = 0;
         }
         //if (bpm < lowerBPMSlider.value) {
         //    navigator.notification.beep(1);
@@ -293,13 +312,34 @@ var app = {
     onError: function(reason) {
         navigator.notification.beep(3);
         //alert("There was an error " + reason);
-        console.log(reason)
         app.status("Error: " + reason.errorMessage);
+        app.events(reason.errorMessage);
     },
     status: function(message) {
         console.log(message);
         statusDiv.innerHTML = message;
     },
+
+    events: function(event) {
+        eventList.innerHTML = '';
+        if (eventQ.length >= 10 ) {
+            eventQ.shift();
+        }
+
+        const date = new Date();
+        let currentTime=date.toGMTString();
+        eventQ.push(currentTime + " " + event);
+        window.localStorage.setItem('eventQ', JSON.stringify(eventQ));
+
+        //creates a HTML element to display in the app
+        for (let event of eventQ) {
+			var listItem = document.createElement('li'),
+			html = event;
+			listItem.innerHTML = html;
+			listItem.setAttribute("class", "result");      //give the element a class for css purposes
+			eventList.appendChild(listItem);  //attach it in the HTML element called eventList
+        }
+    }
 
 
 

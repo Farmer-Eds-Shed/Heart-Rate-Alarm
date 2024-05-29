@@ -13,7 +13,8 @@
 
         <!-- Tab links -->
 <div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'monitor')"" id="defaultOpen">Monitor</button>
+    <button class="tablinks" onclick="openTab(event, 'monitor')" id="defaultOpen">Monitor</button>
+    <button class="tablinks" onclick="openTab(event, 'events')">Events</button>
     <button class="tablinks" onclick="openTab(event, 'settings')">Settings</button>
   </div>
 
@@ -54,6 +55,11 @@
         
               
         </div>
+        </div>
+
+        <div id="events" class="tabcontent">
+            <ul id="eventList">
+            </ul>
         </div>
 
         <div id="settings" class="tabcontent">
