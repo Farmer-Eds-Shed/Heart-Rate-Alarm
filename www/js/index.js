@@ -74,7 +74,7 @@ if (window.localStorage.getItem('eventQ') != null) {
         html = event;
         listItem.innerHTML = html;
         listItem.setAttribute("class", "result");      //give the element a class for css purposes
-        eventList.appendChild(listItem);  //attach it in the HTML element called eventList
+        eventList.prepend(listItem);  //attach it in the HTML element called eventList
     }
 
 }
@@ -291,7 +291,7 @@ var app = {
             
             }
             if (counter == samples) {
-                app.events("Alert, Heart Rate is above " + bpm + " for more than " + samples + " samples")
+                app.events("Alert, Heart Rate is above " + upperBPMSlider.value + " for more than " + samples + " samples")
             }
         }
         else {
@@ -341,7 +341,7 @@ var app = {
 			html = event;
 			listItem.innerHTML = html;
 			listItem.setAttribute("class", "result");      //give the element a class for css purposes
-			eventList.appendChild(listItem);  //attach it in the HTML element called eventList
+			eventList.prepend(listItem);  //attach it in the HTML element called eventList
         }
     },
 
