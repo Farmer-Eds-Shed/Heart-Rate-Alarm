@@ -55,6 +55,7 @@ function urlApply() {
 let counter = 0;
 let samples;
 let eventQ = [];
+let errorTimeout;
 
 
 let heartRate = {
@@ -228,7 +229,6 @@ var app = {
 		bg.enable();
 		bg.on('activate', function () {
 			bg.disableWebViewOptimizations();
-            //rc.send(bg.isActive());
 		});
 		bg.disableBatteryOptimizations();
         bg.overrideBackButton();
@@ -265,6 +265,7 @@ var app = {
         app.status("Connected to " + peripheral.id);
         ble.startNotification(peripheral.id, heartRate.service, heartRate.measurement, app.onData, app.onError);
         app.showConnectPage();
+        app.stopErrorAlert();
     },
     disconnect: function(event) {
 		ble.disconnect(deviceId, app.showStartPage, app.onError);
@@ -290,7 +291,7 @@ var app = {
             
             }
             if (counter == samples) {
-                app.events("Alert, Heart Rate above upper limit")
+                app.events("Alert, Heart Rate is above " + bpm + " for more than " + samples + " samples")
             }
         }
         else {
@@ -299,7 +300,9 @@ var app = {
         //if (bpm < lowerBPMSlider.value) {
         //    navigator.notification.beep(1);
         //}
-        rc.send(bpm);
+        if (url.value != ""){
+            rc.send(bpm);
+        }
     },
     showStartPage: function() {
 		startPage.hidden = false;
@@ -310,10 +313,11 @@ var app = {
 		connectedPage.hidden = false;
 	},
     onError: function(reason) {
-        navigator.notification.beep(3);
-        //alert("There was an error " + reason);
+        //log Errors
         app.status("Error: " + reason.errorMessage);
         app.events(reason.errorMessage);
+        //Audible alert if not restored within timeout, 120000 = 2min
+        errorTimeout = setTimeout(app.errorAlert, 120000);  
     },
     status: function(message) {
         console.log(message);
@@ -339,9 +343,15 @@ var app = {
 			listItem.setAttribute("class", "result");      //give the element a class for css purposes
 			eventList.appendChild(listItem);  //attach it in the HTML element called eventList
         }
+    },
+
+    errorAlert: function() {
+        navigator.notification.beep(3);
+    },
+
+    stopErrorAlert: function() {
+        clearTimeout(errorTimeout);
     }
-
-
 
 };
 
