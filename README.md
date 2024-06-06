@@ -76,11 +76,20 @@ Some devices may require more drastic steps - see: https://dontkillmyapp.com/
   - 2 Peaks after midnight, first did not cross threshold value so did not alarm, second crossed the threshold and raised the alarm. This was a genuine seizure but effects were relatively minor, a little confusion and nausea for a few min.
 
 ### Seizure Activity Building Through Night
+
 <img src="./Grafana/Building_Seizure_Activity.png" alt="drawing" style="width:600px;"/>
 
   - Multiple Alarms in night, built up to a severe focal impaired seizure.
   - Lasted several minuets with a long recovery with nausea and vomiting.
   - Child seemed OK for first couple of alarms but heartrate was increasing with each one.
+
+### Tonic Clonic Seizure
+
+<img src="./Grafana/Tonic_Clonic.png" alt="drawing" style="width:600px;"/>
+
+  - Seizure Recorded by the device we were using previously.
+  - Alarm did not sound due to operating in Low Sensitivity Mode as the child got out of bed before seizure.
+  - This event was the reason for developing this app.
 
 ## Screenshots
 
