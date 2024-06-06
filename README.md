@@ -61,9 +61,29 @@ Some devices may require more drastic steps - see: https://dontkillmyapp.com/
 - dumpsys deviceidle disable
 - exit
 
+## Grafana Graphs
+
+### A Typical Night
+<img src="./Grafana/Typical_Night.png" alt="drawing" style="width:600px;"/>
+
+  - Typical uneventful night.
+
+### Single Focal Impaired Seizure
+
+<img src="./Grafana/Partial_Impaired.png" alt="drawing" style="width:600px;"/>
+
+  - Peaks at beginning of night are a normal active child before settling down to sleep, these are the reason there is a mute button in the app.
+  - 2 Peaks after midnight, first did not cross threshold value so did not alarm, second crossed the threshold and raised the alarm. This was a genuine seizure but effects were relatively minor, a little confusion and nausea for a few min.
+
+### Seizure Activity Building Through Night
+<img src="./Grafana/Building_Seizure_Activity.png" alt="drawing" style="width:600px;"/>
+
+  - Multiple Alarms in night, built up to a severe focal impaired seizure.
+  - Lasted several minuets with a long recovery with nausea and vomiting.
+  - Child seemed OK for first couple of alarms but heartrate was increasing with each one.
+
 ## Screenshots
 
-<img src="./Screenshots/ScreenshotNRChart.png" alt="drawing" style="width:600px;"/>
 <img src="./Screenshots/Screenshot1.jpg" alt="drawing" style="width:200px;"/>
 <img src="./Screenshots/Screenshot2.jpg" alt="drawing" style="width:200px;"/>
 <img src="./Screenshots/Screenshot3.jpg" alt="drawing" style="width:200px;"/>
