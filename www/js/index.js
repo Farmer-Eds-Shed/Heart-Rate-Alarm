@@ -128,14 +128,23 @@ upperSampleSlider.oninput = function() {
 //Mute toggle listener
 let muteCheckBox = document.getElementById("muteInput");
 let mute = false;
+let muteTimout;
 
 muteCheckBox.oninput = function() {
     if (muteCheckBox.checked == true){
         mute = true;
+        muteTimeout = setTimeout(muteReset, 600000); //mute for 10 min
       } else {
         mute = false;
+        clearTimeout(muteTimeout);
       }
 }
+
+function muteReset() {
+    muteCheckBox.checked = false;
+    mute = false;
+} 
+
 
 
 var app = {
