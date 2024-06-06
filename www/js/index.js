@@ -133,7 +133,7 @@ let muteTimout;
 muteCheckBox.oninput = function() {
     if (muteCheckBox.checked == true){
         mute = true;
-        muteTimeout = setTimeout(muteReset, 600000); //mute for 10 min
+        muteTimeout = setTimeout(muteReset, 600000); //mute for 10 mingit 
       } else {
         mute = false;
         clearTimeout(muteTimeout);
