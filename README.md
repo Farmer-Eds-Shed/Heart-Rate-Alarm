@@ -83,14 +83,14 @@ Some devices may require more drastic steps - see: https://dontkillmyapp.com/
   - Lasted several minuets with a long recovery with nausea and vomiting.
   - Child seemed OK for first couple of alarms but heartrate was increasing with each one.
 
-### Focal Impaired leading to Tonic Clonic Seizure
+### Focal Impaired leading to Tonic Clonic Seizures
 
 <img src="./Grafana/Tonic_Clonic.png" alt="drawing" style="width:600px;"/>
 
   - One of our daughters most severe cluster of seizures lasting hours beyond where graph stops.
-  - Seizure Recorded by the device we were using previously.
+  - This Seizure was Recorded by the device we were using previously.
   - Alarm did not sound due to operating in Low Sensitivity Mode as the child got out of bed before seizure.
-  - This event was the reason for developing this app.
+  - This event was the reason for developing the app.
 
 ## Screenshots
 
