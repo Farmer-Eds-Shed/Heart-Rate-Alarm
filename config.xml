@@ -5,9 +5,25 @@
         BLE Heart Rate Alarm
     </description>
     <author> 
+        Farmer-Ed
     </author>
-    <content src="http://localhost/index.html"/>
+    <content src="index.html"/>
     <access origin="*" />
     <allow-navigation href="*"/>
-    <preference name="android-minSdkVersion" value="22"/> 
+    <preference name="android-minSdkVersion" value="22"/>
+    
+    <!-- Plugins -->
+    <plugin name="cordova-plugin-background-mode" source="npm" />
+    <plugin name="cordova-plugin-ble-central" source="npm" />
+    <plugin name="cordova-plugin-notifications-permission" source="npm" />
+    <plugin name="cordova-plugin-device" source="npm" />
+    <plugin name="cordova-plugin-dialogs" source="npm" />
+
+    <!-- Android-specific settings -->
+    <platform name="android">
+        <config-file parent="/*" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+            <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+        </config-file>
+    </platform>
 </widget>
