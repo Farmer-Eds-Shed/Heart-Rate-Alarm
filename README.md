@@ -1,12 +1,8 @@
+# ❤️ Heart Rate Alarm
 
+Heart Rate Alarm is an open-source Android application designed to monitor heart rate and issue audible alerts when predefined thresholds are exceeded. This tool is particularly aimed at assisting in the detection of nocturnal epileptic seizures by leveraging compatible fitness heart rate monitors.
 
-**Disclaimer:** I am not a medical professional, no clinical trials have or will be performed on this software. Use of any code within this repository is entirely at your own risk. It should be noted that not all seizures are the same and what works for detecting one persons may not work for another, also no seizure alarm can guarantee detecting every seizure including some very serious.
-
-App is a work in progress and there is still much to do.
-
-# Heart Rate Alarm
-
-This App works by monitoring heart rate and will issue an audible alert in the event of the heart rate exceeding some definable parameters. 
+>⚠️ **Disclaimer:** I am not a medical professional. This software has not undergone clinical trials. Use it at your own risk. Seizure characteristics vary among individuals, and no alarm system can guarantee detection of all seizure types, including severe ones.
 
 I am developing this software to help monitor our daughters nocturnal epileptic seizures. We have tried using a commercial device, but it is not working for us as it goes into a low sensitivity mode if the wearer gets up and our daughter often sits or even stands up out of bed immediately prior to her seizures due to a feeling of nausea. We have also looked at other commercial devices and decided against for a number of reasons including:
 
